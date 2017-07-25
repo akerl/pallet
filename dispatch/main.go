@@ -5,7 +5,16 @@ type Plugin struct {
 }
 
 func GetPlugin(name string) Plugin, error {
-
+	plugins, err := GetPlugins()
+	if err != nil {
+		return Plugin{}, err
+	}
+	for _, plugin := range plugins {
+		if plugin.Name == name {
+			return plugin, nil
+		}
+	}
+	return Plugin{}, nil
 }
 
 func GetPlugins() []Plugin, error {
@@ -18,14 +27,12 @@ func (p Plugin) Uninstall() error {
 }
 
 func IsPluginInstalled(name string) bool, error {
-	plugins, err := GetPlugins()
+	plugin, err := GetPlugin(name)
 	if err != nil {
 		return false, err
 	}
-	for _, plugin := range plugins {
-		if plugin.Name == name {
-			return true, nil
-		}
+	if plugin.Name != "" {
+		return true, nil
 	}
 	return false, nil
 }

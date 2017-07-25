@@ -10,23 +10,22 @@ import (
 
 func pluginUninstallRunner(cmd *cobra.Command, args []string) error {
 	pluginName := args[0]
-	found, err := dispatch.IsPluginInstalled(pluginName)
+	installed, err := dispatch.IsPluginInstalled(pluginName)
 	if err != nil {
 		return err
 	}
-	if !found {
+	if !installed {
 		return fmt.Errorf("Plugin not installed")
 	}
-
-	dispatch.InstallPlugin(pluginName, pluginURL)
-	return nil
+	plugin := dispatch.GetPlugin(pluginName)
+	return plugin.Uninstall()
 }
 
 var pluginUninstallCmd = &cobra.Command{
 	Use:   "uninstall PLUGIN",
 	Short: "Uninstall a new plugin",
 	RunE:  pluginUninstallRunner,
-	Args: cobra.ExactArgs(1),
+	Args:  cobra.ExactArgs(1),
 }
 
 func init() {

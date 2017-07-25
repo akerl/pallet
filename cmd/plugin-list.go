@@ -9,7 +9,7 @@ import (
 )
 
 func pluginListRunner(cmd *cobra.Command, args []string) error {
-	plugins, err := dispatch.Plugins()
+	plugins, err := dispatch.GetPlugins()
 	if err != nil {
 		return err
 	}
@@ -23,7 +23,7 @@ var pluginListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List installed language plugins",
 	RunE:  pluginListRunner,
-	Args: cobra.NoArgs(),
+	Args:  cobra.NoArgs(),
 }
 
 func init() {
