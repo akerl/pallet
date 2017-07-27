@@ -8,8 +8,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func pluginUninstallRunner(cmd *cobra.Command, args []string) error {
+func pluginUpgradeRunner(cmd *cobra.Command, args []string) error {
 	pluginName := args[0]
+	pluginURL := args[1]
 	ps, err := dispatch.LoadPluginSet()
 	if err != nil {
 		return err
@@ -18,16 +19,16 @@ func pluginUninstallRunner(cmd *cobra.Command, args []string) error {
 	if !installed {
 		return fmt.Errorf("Plugin not installed")
 	}
-	return plugin.Uninstall()
+	return plugin.Upgrade()
 }
 
-var pluginUninstallCmd = &cobra.Command{
-	Use:   "uninstall PLUGIN",
-	Short: "Uninstall a new plugin",
-	RunE:  pluginUninstallRunner,
+var pluginUpgradeCmd = &cobra.Command{
+	Use:   "upgrade PLUGIN",
+	Short: "Upgrade a plugin",
+	RunE:  pluginUpgradeRunner,
 	Args:  cobra.ExactArgs(1),
 }
 
 func init() {
-	pluginCmd.AddCommand(pluginUninstallCmd)
+	pluginCmd.AddCommand(pluginUpgradeCmd)
 }

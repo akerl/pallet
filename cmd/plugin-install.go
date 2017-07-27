@@ -11,14 +11,19 @@ import (
 func pluginInstallRunner(cmd *cobra.Command, args []string) error {
 	pluginName := args[0]
 	pluginURL := args[1]
-	installed, err := dispatch.IsPluginInstalled(pluginName)
+	ps, err := dispatch.LoadPluginSet()
 	if err != nil {
-		return err
+		return nil
 	}
+	_, installed := ps[pluginName]
 	if installed {
 		return fmt.Errorf("Plugin already installed")
 	}
-	return dispatch.InstallPlugin(pluginName, pluginURL)
+	p := dispatch.Plugin{
+		Name: pluginName,
+		URL: pluginURL
+	}
+	return p.Install()
 }
 
 var pluginInstallCmd = &cobra.Command{

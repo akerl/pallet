@@ -9,12 +9,12 @@ import (
 )
 
 func pluginListRunner(cmd *cobra.Command, args []string) error {
-	plugins, err := dispatch.GetPlugins()
+	ps, err := dispatch.LoadPluginSet()
 	if err != nil {
 		return err
 	}
-	for _, plugin := range plugins {
-		fmt.Printf("%s\n", plugin.Name)
+	for name, plugin := range plugins {
+		fmt.Printf("%s %s\n", name, plugin.URL)
 	}
 	return nil
 }
