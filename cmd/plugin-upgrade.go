@@ -10,7 +10,6 @@ import (
 
 func pluginUpgradeRunner(cmd *cobra.Command, args []string) error {
 	pluginName := args[0]
-	pluginURL := args[1]
 	ps, err := dispatch.LoadPluginSet()
 	if err != nil {
 		return err

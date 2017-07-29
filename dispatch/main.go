@@ -8,7 +8,7 @@ type Plugin struct {
 
 func LoadPluginSet() (PluginSet, error) {
 	ps := PluginSet{}
-	err := ps.Load()
+	err := ps.load()
 	return ps, err
 }
 
@@ -17,10 +17,13 @@ func (ps *PluginSet) load() error {
 }
 
 func (p Plugin) Install() error {
+	return nil
 }
 
 func (p Plugin) Uninstall() error {
+	return nil
 }
 
 func (p Plugin) Upgrade() error {
+	return nil
 }

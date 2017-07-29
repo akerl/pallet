@@ -21,7 +21,7 @@ func pluginInstallRunner(cmd *cobra.Command, args []string) error {
 	}
 	p := dispatch.Plugin{
 		Name: pluginName,
-		URL: pluginURL
+		URL: pluginURL,
 	}
 	return p.Install()
 }

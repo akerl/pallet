@@ -13,7 +13,7 @@ func pluginListRunner(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-	for name, plugin := range plugins {
+	for name, plugin := range ps {
 		fmt.Printf("%s %s\n", name, plugin.URL)
 	}
 	return nil
@@ -23,7 +23,7 @@ var pluginListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List installed language plugins",
 	RunE:  pluginListRunner,
-	Args:  cobra.NoArgs(),
+	Args:  cobra.NoArgs,
 }
 
 func init() {
