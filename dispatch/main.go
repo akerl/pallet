@@ -1,5 +1,22 @@
 package dispatch
 
+import (
+	"github.com/akerl/pallet/config"
+
+	"github.com/spf13/viper"
+)
+
+var c *viper.Viper
+
+func LoadConfig() error {
+	x, err := config.LoadConfig()
+	if err != nil {
+		return err
+	}
+	c = &x
+	return nil
+}
+
 type PluginSet map[string]Plugin
 
 type Plugin struct {
