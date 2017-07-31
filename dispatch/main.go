@@ -9,12 +9,9 @@ import (
 var c *viper.Viper
 
 func LoadConfig() error {
-	x, err := config.LoadConfig()
-	if err != nil {
-		return err
-	}
-	c = &x
-	return nil
+	var err error
+	c, err = config.LoadConfig()
+	return err
 }
 
 type PluginSet map[string]Plugin

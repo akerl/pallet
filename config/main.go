@@ -10,7 +10,7 @@ const (
 )
 
 var defaults = map[string]interface{}{
-	"root": "$HOME/.pallet",
+	"root": configDir,
 }
 
 func LoadConfig() (*viper.Viper, error) {
@@ -24,8 +24,12 @@ func LoadConfig() (*viper.Viper, error) {
 	}
 
 	v.AddConfigPath(configDir)
-	err := viper.ReadInConfig()
+	err := v.ReadInConfig()
 	if err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			return v, nil
+		}
 		return nil, err
 	}
+	return v, nil
 }
