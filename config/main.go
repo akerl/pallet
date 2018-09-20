@@ -13,6 +13,7 @@ var defaults = map[string]interface{}{
 	"root": configDir,
 }
 
+// LoadConfig loads the Pallet configuration
 func LoadConfig() (*viper.Viper, error) {
 	v := viper.New()
 
